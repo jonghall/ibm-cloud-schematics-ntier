@@ -19,10 +19,9 @@ resource "ibm_is_instance" "vpc-a-client" {
 
   vpc       = "${ibm_is_vpc.vpc1.id}"
   zone      = "${var.zone1}"
-  keys      = ["${data.ibm_is_ssh_key.sshkey1.id}","${data.ibm_is_ssh_key.sshkey2.id}"]
+  keys      = ["${data.ibm_is_ssh_key.sshkey1.id}"]
   user_data = "${data.template_cloudinit_config.cloud-init-client.rendered}"
 }
-
 
 
 #---------------------------------------------------------
