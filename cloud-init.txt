@@ -1,0 +1,24 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+
+packages:
+- acl
+- ntp
+- htop
+- git
+- unzip
+- supervisor
+- iperf3
+- mtr
+- net-tools
+- traceroute
+- tcpdump
+
+power_state:
+ mode: reboot
+ message: Rebooting server now.
+ timeout: 30
+ condition: True
+
+runcmd:
