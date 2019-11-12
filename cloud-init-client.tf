@@ -8,8 +8,8 @@ data "local_file" "script" {
 }
 
 data "template_cloudinit_config" "cloud-init-client" {
-  base64_encode   = true
-  gzip            = true
+  base64_encode   = false
+  gzip            = false
 
   part {
     filename      = "init.cfg"
