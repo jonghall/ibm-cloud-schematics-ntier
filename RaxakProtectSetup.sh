@@ -27,11 +27,11 @@ raxakserver='https://raxakprotect.cloudraxak.net'
 resource_type='29'
 org='14702'
 owner='14705'
-selected_profile='[rpm-based Linux] Master Profile'
-selected_profile_id='6679'
-compliance_mode='scan'
+selected_profile=''
+selected_profile_id='None'
+compliance_mode='None'
 ssh_port='22'
-compliance_freq="daily"
+compliance_freq="None"
 
 username=${username:-raxak}
 resource_type=${resource_type:-None}
@@ -132,7 +132,7 @@ echo User changed to `whoami`
 cd ~
 echo Working in directory `pwd`
 mkdir -p ~/.ssh/
-key="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGLTYutw0ppxdQQkmbbMwPyksgu9wsYVzoDd4cO7cbaEXwk9B6RFwWG9ysYa677W/S25+uNo1s+IpcUniZcGg3mNFGqzcj+zz3f55TmATmEej32h+/Eb1lt3gHXLVc6ZRFqFF3Rq12+VBsrp9ANzDuNDzQBIMs3AENU2Qcd7lPIrSohRz9X3RMkwUcBXQAWElQbAvn/8NUI1aoFlrY+ZFpgO4VnayU50v2dPF8qfiBCGzFvZSU/sGwT3lQj3r54liJfDUKGVjJYIxM9l0GDFQec/xLvu9MbxKb38dfXLEQsIbm0QSqWqnL3shn/0neCp0vtMzN10GjGYsHMXhU9SbJ raxak:2fe93903-daa5-4e23-afc2-4090aac3c102:14702
+key="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDnn15vePUUwc655qz07QXBrrxbu8Qe0vze1WyEf5k3fDhWcNRVhpJZoyFxWn5KHAtUSUKliHLM6r2wZ5N3CsswMvfwbfr1qt4iHZViMZsZLQfvjzb7XHA04Vl/+SQDi7DEVGEAlV+JMeA1gLYwhMn6OCXwdmOV4g4Pze8fPV801XU+X55wM81WHSis3h9lfvrBJdH+S1GbC3RyXieoVIzXmt4lJN1kB2ZjOZdo10UDVMF6jXfUhAtombEUE5ZyaVoPZi9vXEDSN+mJwHt6ok6mJwTI80bGFGmpJfqqSjJ2HGJZN4ONYFMyrdgMgyDyf0Yk1lq7/41LSC2Kb+6HCDor raxak:2fe93903-daa5-4e23-afc2-4090aac3c102:14702
 "
 echo "Key = "$key
 # Parse the raxak server GUID and org name from the key
