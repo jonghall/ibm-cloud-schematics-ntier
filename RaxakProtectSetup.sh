@@ -1,5 +1,5 @@
 #!/bin/bash
-#	VMSetup.sh
+#	VMSetup.sh test
 #	(c) 2015-2018, Cloud Raxak, Inc.
 #	This script, run as a post-install script, will set up the desired userid
 #	and populate its public key. It will also set up no-password sudo access
