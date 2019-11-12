@@ -9,16 +9,12 @@ packages:
 - git
 - unzip
 - supervisor
-- iperf3
 - mtr
 - net-tools
 - traceroute
-- tcpdump
 
 power_state:
  mode: reboot
  message: Rebooting server now.
  timeout: 30
  condition: True
-
-runcmd:
