@@ -2,7 +2,6 @@
 # MODIFY VARIABLES AS NEEDED
 #---------------------------------------------------------
 
-
 #---------------------------------------------------------
 ## DEFINE VPC
 #---------------------------------------------------------
@@ -10,9 +9,16 @@ variable "vpc1-name" {
   default = "raxak-test"
 }
 
-
 variable "resource_group" {
   default = "default"
+}
+
+variable "server-count" {
+  default = 2
+}
+
+variable "server-name" {
+  default = "test-server-%02d"
 }
 
 #---------------------------------------------------------
@@ -54,11 +60,5 @@ variable "image" {
 #---------------------------------------------------------
 variable "profile-server" {
   default = "cx2-2x4"
-}
-
-
-#External Test Machine network CIDR block for Security Group access
-variable "external-cidr" {
-  default = "24.252.31.135/32"
 }
 

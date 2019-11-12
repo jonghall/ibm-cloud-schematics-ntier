@@ -6,9 +6,9 @@ data "ibm_is_ssh_key" "sshkey1" {
 }
 
 
-
 resource "ibm_is_instance" "vpc-a-client" {
-  name    = "vpc-a-client"
+  count   = "${var.server-count}"
+  name    = "${format(var.server-name, count.index + 1)}-${var.zone1}"
   image   = "${var.image}"
   profile = "${var.profile-server}"
 
@@ -29,7 +29,8 @@ resource "ibm_is_instance" "vpc-a-client" {
 #---------------------------------------------------------
 
 resource "ibm_is_floating_ip" "vpc-a-client-zone1-fip" {
-  name    = "vpc-a-client-${var.zone1}-fip"
-  target  = "${ibm_is_instance.vpc-a-client.primary_network_interface.0.id}"
+  count   = "${var.server-count}"
+  name    = "${format(var.server-name, count.index + 1)}-${var.zone1}-fip"
+  target  = "${element(ibm_is_instance.vpc-a-client.*.primary_network_interface.0.id, count.index)}"
 }
 
