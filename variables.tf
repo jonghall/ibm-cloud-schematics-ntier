@@ -53,7 +53,7 @@ variable "server-subnet-vpc-a-zone-1" {
 #image = Centos7
 variable "image" {
 #  default = "99edcc54-c513-4d46-9f5b-36243a1e50e2"
-  default = "b210bd87-8a60-4b2d-add6-92cc5187c3ae"
+  default = "cc8debe0-1b30-6e37-2e13-744bfb2a0c11"
 }
 
 #---------------------------------------------------------
