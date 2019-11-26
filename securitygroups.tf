@@ -10,14 +10,14 @@ resource "ibm_is_security_group_rule" "vpc-a-webserver-securitygroup-rule1" {
   group      = "${ibm_is_security_group.vpc-a-webserver-securitygroup.id}"
   direction  = "inbound"
   ip_version = "ipv4"
-  remote     = "${var.web-subnet-vpc-a-zone-1}"
+  remote     = "${var.web-subnet-vpc-a-zone-a}"
 }
 
 resource "ibm_is_security_group_rule" "vpc-a-webserver-securitygroup-rule2" {
   group      = "${ibm_is_security_group.vpc-a-webserver-securitygroup.id}"
   direction  = "inbound"
   ip_version = "ipv4"
-  remote     = "${var.web-subnet-vpc-a-zone-2}"
+  remote     = "${var.web-subnet-vpc-a-zone-b}"
 }
 
 
@@ -73,14 +73,14 @@ resource "ibm_is_security_group_rule" "vpc-a-dbserver-securitygroup-rule1" {
   group      = "${ibm_is_security_group.vpc-a-dbserver-securitygroup.id}"
   direction  = "inbound"
   ip_version = "ipv4"
-  remote     = "${var.data-subnet-vpc-a-zone-1}"
+  remote     = "${var.data-subnet-vpc-a-zone-a}"
 }
 
 resource "ibm_is_security_group_rule" "vpc-a-dbserver-securitygroup-rule2" {
   group      = "${ibm_is_security_group.vpc-a-dbserver-securitygroup.id}"
   direction  = "inbound"
   ip_version = "ipv4"
-  remote     = "${var.data-subnet-vpc-a-zone-2}"
+  remote     = "${var.data-subnet-vpc-a-zone-b}"
 }
 
 resource "ibm_is_security_group_rule" "vpc-a-dbserver-securitygroup-rule3" {
@@ -98,7 +98,7 @@ resource "ibm_is_security_group_rule" "vpc-a-dbserver-securitygroup-rule4" {
   group      = "${ibm_is_security_group.vpc-a-dbserver-securitygroup.id}"
   direction  = "inbound"
   ip_version = "ipv4"
-  remote     = "${var.web-subnet-vpc-a-zone-1}"
+  remote     = "${var.web-subnet-vpc-a-zone-a}"
   tcp = {
     port_min = 3309
     port_max = 3309
@@ -109,7 +109,7 @@ resource "ibm_is_security_group_rule" "vpc-a-dbserver-securitygroup-rule5" {
   group      = "${ibm_is_security_group.vpc-a-dbserver-securitygroup.id}"
   direction  = "inbound"
   ip_version = "ipv4"
-  remote     = "${var.web-subnet-vpc-a-zone-2}"
+  remote     = "${var.web-subnet-vpc-a-zone-b}"
   tcp = {
     port_min = 3309
     port_max = 3309

@@ -22,8 +22,8 @@ resource "ibm_is_vpc" "vpc1" {
 resource "ibm_is_vpc_address_prefix" "prefix1-a-1" {
   name = "vpc-a-zone1-vpc-a-cidr-1"
   vpc  = "${ibm_is_vpc.vpc1.id}"
-  zone = "${var.zone1}"
-  cidr = "${var.address-prefix-vpc-a-1}"
+  zone = "${var.zone-a}"
+  cidr = "${var.address-prefix-vpc-a-zone-a}"
   provisioner "local-exec" {
     command = "sleep 120"
     when    = "destroy"
@@ -33,8 +33,8 @@ resource "ibm_is_vpc_address_prefix" "prefix1-a-1" {
 resource "ibm_is_vpc_address_prefix" "prefix1-a-2" {
   name = "vpc-a-zone2-vpc-a-cidr-1"
   vpc  = "${ibm_is_vpc.vpc1.id}"
-  zone = "${var.zone2}"
-  cidr = "${var.address-prefix-vpc-a-2}"
+  zone = "${var.zone-b}"
+  cidr = "${var.address-prefix-vpc-a-zone-b}"
   provisioner "local-exec" {
     command = "sleep 120"
     when    = "destroy"
@@ -46,9 +46,9 @@ resource "ibm_is_vpc_address_prefix" "prefix1-a-2" {
 # Get Public Gateway's for Zone 1 & Zone 2
 #---------------------------------------------------------
 resource "ibm_is_public_gateway" "pubgw-vpc-a-zone1" {
-  name = "${var.vpc1-name}-${var.zone1}-pubgw"
+  name = "${var.vpc1-name}-${var.zone-a}-pubgw"
   vpc  = "${ibm_is_vpc.vpc1.id}"
-  zone = "${var.zone1}"
+  zone = "${var.zone-a}"
   provisioner "local-exec" {
     command = "sleep 60"
     when    = "destroy"
@@ -56,9 +56,9 @@ resource "ibm_is_public_gateway" "pubgw-vpc-a-zone1" {
 }
 
 resource "ibm_is_public_gateway" "pubgw-vpc-a-zone2" {
-  name = "${var.vpc1-name}-${var.zone2}-pubgw"
+  name = "${var.vpc1-name}-${var.zone-b}-pubgw"
   vpc  = "${ibm_is_vpc.vpc1.id}"
-  zone = "${var.zone2}"
+  zone = "${var.zone-b}"
   provisioner "local-exec" {
     command = "sleep 60"
     when    = "destroy"
@@ -71,34 +71,34 @@ resource "ibm_is_public_gateway" "pubgw-vpc-a-zone2" {
 ## Create Web and DB subnets in Zone 1 & Zone 2
 #---------------------------------------------------------
 resource "ibm_is_subnet" "web-subnet-vpc-a-zone1" {
-  name            = "${var.vpc1-name}-${var.zone1}-webservers"
+  name            = "${var.vpc1-name}-${var.zone-a}-webservers"
   vpc             = "${ibm_is_vpc.vpc1.id}"
-  zone            = "${var.zone1}"
-  ipv4_cidr_block = "${var.web-subnet-vpc-a-zone-1}"
+  zone            = "${var.zone-a}"
+  ipv4_cidr_block = "${var.web-subnet-vpc-a-zone-a}"
   public_gateway  = "${ibm_is_public_gateway.pubgw-vpc-a-zone1.id}"
 
 }
 
 resource "ibm_is_subnet" "web-subnet-vpc-a-zone2" {
-  name            = "${var.vpc1-name}-${var.zone2}-webservers"
+  name            = "${var.vpc1-name}-${var.zone-b}-webservers"
   vpc             = "${ibm_is_vpc.vpc1.id}"
-  zone            = "${var.zone2}"
-  ipv4_cidr_block = "${var.web-subnet-vpc-a-zone-2}"
+  zone            = "${var.zone-b}"
+  ipv4_cidr_block = "${var.web-subnet-vpc-a-zone-b}"
   public_gateway  = "${ibm_is_public_gateway.pubgw-vpc-a-zone2.id}"
 }
 
 resource "ibm_is_subnet" "data-subnet-vpc-a-zone1" {
-  name            = "${var.vpc1-name}-${var.zone1}-dbservers"
+  name            = "${var.vpc1-name}-${var.zone-a}-dbservers"
   vpc             = "${ibm_is_vpc.vpc1.id}"
-  zone            = "${var.zone1}"
-  ipv4_cidr_block = "${var.data-subnet-vpc-a-zone-1}"
+  zone            = "${var.zone-a}"
+  ipv4_cidr_block = "${var.data-subnet-vpc-a-zone-a}"
   public_gateway  = "${ibm_is_public_gateway.pubgw-vpc-a-zone1.id}"
 }
 
 resource "ibm_is_subnet" "data-subnet-vpc-a-zone2" {
-  name            = "${var.vpc1-name}-${var.zone2}-dbservers"
+  name            = "${var.vpc1-name}-${var.zone-b}-dbservers"
   vpc             = "${ibm_is_vpc.vpc1.id}"
-  zone            = "${var.zone2}"
-  ipv4_cidr_block = "${var.data-subnet-vpc-a-zone-2}"
+  zone            = "${var.zone-b}"
+  ipv4_cidr_block = "${var.data-subnet-vpc-a-zone-b}"
   public_gateway  = "${ibm_is_public_gateway.pubgw-vpc-a-zone2.id}"
 }

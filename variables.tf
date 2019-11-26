@@ -13,30 +13,15 @@ variable "resource_group" {
   default = "default"
 }
 
-variable "web-server-count" {
-  default = 1
-}
-
-variable "db-server-count" {
-  default = 1
-}
-
-variable "web-server-name" {
-  default = "webserver-%02d"
-}
-
-variable "db-server-name" {
-  default = "mysqlserver-%02d"
-}
 
 #---------------------------------------------------------
 ## DEFINE Zones
 #---------------------------------------------------------
-variable "zone1" {
+variable "zone-a" {
   default = "us-south-1"
 }
 
-variable "zone2" {
+variable "zone-b" {
   default = "us-south-3"
 }
 
@@ -44,11 +29,11 @@ variable "zone2" {
 ## DEFINE CIDR Blocks to be used in each zone
 #---------------------------------------------------------
 
-variable "address-prefix-vpc-a-1" {
+variable "address-prefix-vpc-a-zone-a" {
   default = "172.21.0.0/22"
 }
 
-variable "address-prefix-vpc-a-2" {
+variable "address-prefix-vpc-a-zone-b" {
   default = "172.21.4.0/22"
 }
 
@@ -57,19 +42,19 @@ variable "address-prefix-vpc-a-2" {
 ## DEFINE subnets for zone 1
 #---------------------------------------------------------
 
-variable "web-subnet-vpc-a-zone-1" {
+variable "web-subnet-vpc-a-zone-a" {
   default = "172.21.0.0/24"
 }
 
-variable "data-subnet-vpc-a-zone-1" {
+variable "data-subnet-vpc-a-zone-a" {
   default = "172.21.1.0/24"
 }
 
-variable "web-subnet-vpc-a-zone-2" {
+variable "web-subnet-vpc-a-zone-b" {
   default = "172.21.4.0/24"
 }
 
-variable "data-subnet-vpc-a-zone-2" {
+variable "data-subnet-vpc-a-zone-b" {
   default = "172.21.5.0/24"
 }
 
@@ -78,15 +63,31 @@ variable "data-subnet-vpc-a-zone-2" {
 #---------------------------------------------------------
 
 #image = Centos7
-variable "image" {
-  default = "99edcc54-c513-4d46-9f5b-36243a1e50e2"
-#  default = "cc8debe0-1b30-6e37-2e13-744bfb2a0c11"
+variable "os-image-name" {
+  default = "ibm-centos-7-0-64"
 }
 
-#---------------------------------------------------------
-## DEFINE webapptier compute instance profile & quantity
-#---------------------------------------------------------
-variable "profile-server" {
+variable "webserver-profile" {
   default = "cx2-2x4"
-  #default = "c1-2x4"
 }
+
+variable "dbserver-profile" {
+  default = "cx2-2x4"
+}
+
+variable "web-server-count" {
+  default = 1
+}
+
+variable "db-server-count" {
+  default = 1
+}
+
+variable "web-server-name-template" {
+  default = "webserver-%02d"
+}
+
+variable "db-server-name-template" {
+  default = "mysqlserver-%02d"
+}
+
