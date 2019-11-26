@@ -5,6 +5,10 @@ data "ibm_is_ssh_key" "sshkey1" {
   name = "jonhall"
 }
 
+data "local_file" "script" {
+  filename        = "RaxakProtectSetup.sh"
+}
+
 resource "ibm_is_instance" "vpc-a-webserver-zone-1" {
   count   = "${var.web-server-count}"
   name    = "${format(var.web-server-name, count.index + 1)}-${var.zone1}"
@@ -93,7 +97,7 @@ resource "ibm_is_floating_ip" "vpc-a-webserver-zone2-fip" {
 }
 
 resource "ibm_is_floating_ip" "vpc-a-dbserver-zone2-fip" {
-  count   = "${var.web-server-count}"
+  count   = "${var.db-server-count}"
   name    = "${format(var.db-server-name, count.index + 1)}-${var.zone2}-fip"
   target  = "${element(ibm_is_instance.vpc-a-dbserver-zone-2.*.primary_network_interface.0.id, count.index)}"
 }
