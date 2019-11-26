@@ -14,7 +14,7 @@ variable "resource_group" {
 }
 
 variable "web-server-count" {
-  default = 2
+  default = 1
 }
 
 variable "db-server-count" {
