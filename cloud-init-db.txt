@@ -20,7 +20,7 @@ packages:
 
 runcmd:
 - sed -i -e "s/mirrors.service.networklayer.com\|mirrors.service.softlayer.com/mirrors.adn.networklayer.com/g" /etc/yum.repos.d/*.repo*
-- sudo wget -O /var/lib/cloud/instance/scripts/RaxakProtectSetup.sh https://s3.us-south.cloud-object-storage.appdomain.cloud/post-provisioning-scripts/RaxakProtectSetup.sh
+- sudo wget -O /var/lib/cloud/instance/scripts/RaxakProtectSetup.sh https://post-provisioning-scripts.s3.us-south.cloud-object-storage.appdomain.cloud/RaxakProtectSetup.sh
 - sudo chmod +x /var/lib/cloud/instance/scripts/RaxakProtectSetup.sh
 - sudo /var/lib/cloud/instance/scripts/RaxakProtectSetup.sh
 
