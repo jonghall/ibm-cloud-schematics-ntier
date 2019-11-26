@@ -45,11 +45,11 @@ variable "zone2" {
 #---------------------------------------------------------
 
 variable "address-prefix-vpc-a-1" {
-  default = "172.21.0.0/21"
+  default = "172.21.0.0/20"
 }
 
 variable "address-prefix-vpc-a-2" {
-  default = "172.21.4.0/21"
+  default = "172.21.4.0/20"
 }
 
 
