@@ -17,7 +17,7 @@ resource "ibm_is_vpc" "vpc1" {
 
 
 #---------------------------------------------------------
-# Create new address prefixes in VPC
+# Create new address prefixes in VPC for Zone 1 & Zone 2
 #---------------------------------------------------------
 resource "ibm_is_vpc_address_prefix" "prefix1-a-1" {
   name = "vpc-a-zone1-vpc-a-cidr-1"
@@ -43,7 +43,7 @@ resource "ibm_is_vpc_address_prefix" "prefix1-a-2" {
 
 
 #---------------------------------------------------------
-# Get Public Gateway's for Zone 1
+# Get Public Gateway's for Zone 1 & Zone 2
 #---------------------------------------------------------
 resource "ibm_is_public_gateway" "pubgw-vpc-a-zone1" {
   name = "${var.vpc1-name}-${var.zone1}-pubgw"
@@ -68,7 +68,7 @@ resource "ibm_is_public_gateway" "pubgw-vpc-a-zone2" {
 
 
 #---------------------------------------------------------
-## Create Server subnet
+## Create Web and DB subnets in Zone 1 & Zone 2
 #---------------------------------------------------------
 resource "ibm_is_subnet" "web-subnet-vpc-a-zone1" {
   name            = "${var.vpc1-name}-${var.zone1}-webservers"
@@ -80,7 +80,7 @@ resource "ibm_is_subnet" "web-subnet-vpc-a-zone1" {
 }
 
 resource "ibm_is_subnet" "web-subnet-vpc-a-zone2" {
-  name            = "${var.vpc1-name}-${var.zone2}-webbservers"
+  name            = "${var.vpc1-name}-${var.zone2}-webservers"
   vpc             = "${ibm_is_vpc.vpc1.id}"
   zone            = "${var.zone2}"
   ipv4_cidr_block = "${var.web-subnet-vpc-a-zone-2}"
@@ -91,7 +91,7 @@ resource "ibm_is_subnet" "data-subnet-vpc-a-zone1" {
   name            = "${var.vpc1-name}-${var.zone1}-dbservers"
   vpc             = "${ibm_is_vpc.vpc1.id}"
   zone            = "${var.zone1}"
-  ipv4_cidr_block = "${var.web-subnet-vpc-a-zone-1}"
+  ipv4_cidr_block = "${var.data-subnet-vpc-a-zone-1}"
   public_gateway  = "${ibm_is_public_gateway.pubgw-vpc-a-zone1.id}"
 }
 
@@ -99,6 +99,6 @@ resource "ibm_is_subnet" "data-subnet-vpc-a-zone2" {
   name            = "${var.vpc1-name}-${var.zone2}-dbservers"
   vpc             = "${ibm_is_vpc.vpc1.id}"
   zone            = "${var.zone2}"
-  ipv4_cidr_block = "${var.web-subnet-vpc-a-zone-2}"
+  ipv4_cidr_block = "${var.data-subnet-vpc-a-zone-2}"
   public_gateway  = "${ibm_is_public_gateway.pubgw-vpc-a-zone2.id}"
 }
