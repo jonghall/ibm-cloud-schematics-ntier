@@ -1,4 +1,13 @@
 #!/usr/bin/env bash
-NICID=$(ibmcloud is instance-create $1 r006-6b35433f-d432-410f-8869-db1a5869e8db us-south-1 cx2-2x4 0717-9a5dbf4d-6da1-4a1a-8879-611bf29e7da8 --key-ids r006-870b4d7e-02dd-47c3-a1b8-733504a6b98a --image-id 99edcc54-c513-4d46-9f5b-36243a1e50e2  --security-group-ids r006-19abc92d-bd71-4855-9aa4-8d2afe5d7f1f --user-data @RaxakProtectSetup.sh | awk '/Primary interface/ {print $3}' | sed 's/.*(\(.*\))/\1/')
-echo $NICID
-ibmcloud is floating-ip-reserve $1-fip --nic-id $NICID
+vsiname=$1
+vpc="7b4bd245-37eb-456a-b5e2-458b43ddb98c"
+subnet="0ea2283c-f545-44a5-ad2b-d2c5343bc214"
+region="us-south-1"
+profile="cc1-2x4"
+image="cc8debe0-1b30-6e37-2e13-744bfb2a0c11"
+securitygroup="2d364f0a-a870-42c3-a554-000002178570"
+key="636f6d70-0000-0001-0000-000000170bf4"
+
+NICID=$(ibmcloud is instance-create $vsiname $vpc $region cc1-2x4 $subnet --key-ids $key --image-id $image --security-group-ids $securitygroup --user-data @RaxakProtectSetup.sh | awk '/Primary interface/ {print $3}' | sed 's/.*(\(.*\))/\1/')
+sleep 5
+ibmcloud is floating-ip-reserve $vsiname-fip --nic-id $NICID

@@ -13,12 +13,20 @@ variable "resource_group" {
   default = "default"
 }
 
-variable "server-count" {
+variable "web-server-count" {
   default = 2
 }
 
-variable "server-name" {
-  default = "test-server-%02d"
+variable "db-server-count" {
+  default = 1
+}
+
+variable "web-server-name" {
+  default = "webserver-%02d"
+}
+
+variable "db-server-name" {
+  default = "mysqlserver-%02d"
 }
 
 #---------------------------------------------------------
@@ -26,6 +34,10 @@ variable "server-name" {
 #---------------------------------------------------------
 variable "zone1" {
   default = "us-south-1"
+}
+
+variable "zone2" {
+  default = "us-south-3"
 }
 
 #---------------------------------------------------------
@@ -36,15 +48,30 @@ variable "address-prefix-vpc-a-1" {
   default = "172.21.0.0/21"
 }
 
+variable "address-prefix-vpc-a-2" {
+  default = "172.21.4.0/21"
+}
+
 
 #---------------------------------------------------------
 ## DEFINE subnets for zone 1
 #---------------------------------------------------------
 
-variable "server-subnet-vpc-a-zone-1" {
+variable "web-subnet-vpc-a-zone-1" {
   default = "172.21.0.0/24"
 }
 
+variable "data-subnet-vpc-a-zone-1" {
+  default = "172.21.1.0/24"
+}
+
+variable "web-subnet-vpc-a-zone-2" {
+  default = "172.21.4.0/24"
+}
+
+variable "data-subnet-vpc-a-zone-2" {
+  default = "172.21.5.0/24"
+}
 
 #---------------------------------------------------------
 ## DEFINE OS image to be used for compute instances

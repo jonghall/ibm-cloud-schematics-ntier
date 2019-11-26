@@ -1,20 +1,20 @@
 
-data "local_file" "cloud-init-text" {
-  filename        = "cloud-init.txt"
+data "local_file" "cloud-init-web-text" {
+  filename        = "cloud-init-web.txt"
 }
 
 #data "local_file" "script" {
 #  filename        = "RaxakProtectSetup.sh"
 #}
 
-data "template_cloudinit_config" "cloud-init-client" {
+data "template_cloudinit_config" "cloud-init-web" {
   base64_encode   = false
   gzip            = false
 
   part {
     filename      = "init.cfg"
     content_type  = "text/cloud-config"
-    content       = "${data.local_file.cloud-init-text.content}"
+    content       = "${data.local_file.cloud-init-web-text.content}"
   }
 
 #  part {

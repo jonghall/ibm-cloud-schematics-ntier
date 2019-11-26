@@ -4,14 +4,19 @@ package_update: false
 package_upgrade: false
 
 packages:
-- acl
-- ntp
-- htop
-- git
-- unzip
-- supervisor
-- net-tools
-- traceroute
+ - build-essential
+ - acl
+ - ntp
+ - htop
+ - git
+ - supervisor
+ - python3
+ - python3-pip
+ - mysql-client
+ - mysql-server-5.7
+ - python3-pymysql
+ - net-tools
+ - traceroute
 
 runcmd:
 - sed -i -e "s/mirrors.service.networklayer.com\|mirrors.service.softlayer.com/mirrors.adn.networklayer.com/g" /etc/yum.repos.d/*.repo*
