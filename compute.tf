@@ -48,7 +48,7 @@ resource "ibm_is_instance" "vpc-a-webserver-zone-2" {
     security_groups = ["${ibm_is_security_group.vpc-a-webserver-securitygroup.id}"]
   }
   vpc       = "${ibm_is_vpc.vpc1.id}"
-  zone      = "${var.zone1}"
+  zone      = "${var.zone2}"
   keys      = ["${data.ibm_is_ssh_key.sshkey1.id}"]
   user_data = "${data.template_cloudinit_config.cloud-init-web.rendered}"
 }
@@ -64,9 +64,9 @@ resource "ibm_is_instance" "vpc-a-dbserver-zone-2" {
     security_groups = ["${ibm_is_security_group.vpc-a-dbserver-securitygroup.id}"]
   }
   vpc       = "${ibm_is_vpc.vpc1.id}"
-  zone      = "${var.zone1}"
+  zone      = "${var.zone2}"
   keys      = ["${data.ibm_is_ssh_key.sshkey1.id}"]
-  user_data = "${data.template_cloudinit_config.cloud-init-web.rendered}"
+  user_data = "${data.template_cloudinit_config.cloud-init-db.rendered}"
 }
 
 
