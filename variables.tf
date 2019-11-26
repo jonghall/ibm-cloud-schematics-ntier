@@ -90,4 +90,3 @@ variable "profile-server" {
   # default = "cx2-2x4"
   default = "cc1-2x4"
 }
-
