@@ -5,10 +5,10 @@ to increase the overall resilience of the application.   However, building these
 can be tedious to implement manually.   Additionally today's development cycles often require quick turn around and frequent updates driving the need for automation.
 
 ### Infrastructure Architecture
-![3tier Web App - Infrastructure](/images/infrastructure-architecture.png)
+![3tier Web App - Infrastructure](images/infrastructure-architecture.png)
 
 ### Application Architecture
-![3tuer Web App - Application](/images/application-data-flow.png)
+![3tuer Web App - Application](images/application-data-flow.png)
 
 [HashiCorp's Terraform](https://www.terraform.io/) makes defining your cloud infrastructure in code possible.   Using the [IBM Cloud Terraform Provider](https://github.com/IBM-Cloud/terraform-provider-ibm)
 simplifies the provisioning and management of infrastructure in the IBM Cloud using Terraform by automating and saving the state of VPCs, security-groups, network acls, subnets, compute resources,
