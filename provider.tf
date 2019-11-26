@@ -1,5 +1,5 @@
 provider "ibm" {
   region = "us-south"
-  generation = 1
+  generation = 2
   version = "= 0.19.1"
 }

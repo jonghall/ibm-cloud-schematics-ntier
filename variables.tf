@@ -79,14 +79,14 @@ variable "data-subnet-vpc-a-zone-2" {
 
 #image = Centos7
 variable "image" {
-#  default = "99edcc54-c513-4d46-9f5b-36243a1e50e2"
-  default = "cc8debe0-1b30-6e37-2e13-744bfb2a0c11"
+  default = "99edcc54-c513-4d46-9f5b-36243a1e50e2"
+#  default = "cc8debe0-1b30-6e37-2e13-744bfb2a0c11"
 }
 
 #---------------------------------------------------------
 ## DEFINE webapptier compute instance profile & quantity
 #---------------------------------------------------------
 variable "profile-server" {
-  # default = "cx2-2x4"
-  default = "cc1-2x4"
+  default = "cx2-2x4"
+  #default = "c1-2x4"
 }
