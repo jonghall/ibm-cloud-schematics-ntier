@@ -5,7 +5,7 @@ to increase the overall resilience of the application.   However, building these
 can be tedious to implement manually.   Additionally today's development cycles often require quick turn around and frequent updates driving the need for automation.
 
 ### Infrastructure Architecture
-![3tier Web App - Infrastructure](/docs/images/infrastructure-architecture.png)
+![3tier Web App - Infrastructure](docs/images/infrastructure-architecture.png)
 
 ### Application Architecture
 ![3tuer Web App - Application](docs/images/application-data-flow.png)
