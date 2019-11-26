@@ -5,10 +5,6 @@ data "ibm_is_ssh_key" "sshkey1" {
   name = "jonhall"
 }
 
-data "local_file" "script" {
-  filename        = "RaxakProtectSetup.sh"
-}
-
 resource "ibm_is_instance" "vpc-a-webserver-zone-1" {
   count   = "${var.web-server-count}"
   name    = "${format(var.web-server-name, count.index + 1)}-${var.zone1}"
