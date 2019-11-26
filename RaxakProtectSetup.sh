@@ -1,5 +1,5 @@
 #!/bin/bash
-#	VMSetup.sh test
+#	VMSetup.sh
 #	(c) 2015-2018, Cloud Raxak, Inc.
 #	This script, run as a post-install script, will set up the desired userid
 #	and populate its public key. It will also set up no-password sudo access
@@ -27,11 +27,11 @@ raxakserver='https://raxakprotect.cloudraxak.net'
 resource_type='29'
 org='14702'
 owner='14705'
-selected_profile=''
-selected_profile_id='None'
-compliance_mode='None'
+selected_profile='[rpm-based Linux] CIS Profile (Subset)'
+selected_profile_id='5841'
+compliance_mode='remediate'
 ssh_port='22'
-compliance_freq="None"
+compliance_freq="daily"
 
 username=${username:-raxak}
 resource_type=${resource_type:-None}
