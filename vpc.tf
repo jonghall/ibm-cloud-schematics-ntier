@@ -25,7 +25,7 @@ resource "ibm_is_vpc_address_prefix" "prefix1-a-1" {
   zone = "${var.zone-a}"
   cidr = "${var.address-prefix-vpc-a-zone-a}"
   provisioner "local-exec" {
-    command = "sleep 120"
+    command = "sleep 210"
     when    = "destroy"
   }
 }
@@ -36,7 +36,7 @@ resource "ibm_is_vpc_address_prefix" "prefix1-a-2" {
   zone = "${var.zone-b}"
   cidr = "${var.address-prefix-vpc-a-zone-b}"
   provisioner "local-exec" {
-    command = "sleep 120"
+    command = "sleep 210"
     when    = "destroy"
   }
 }

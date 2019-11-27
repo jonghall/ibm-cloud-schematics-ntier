@@ -17,20 +17,19 @@ resource "ibm_cis_healthcheck" "root" {
 }
 
 # Create Pool (of one) with VPC LBaaS instances using URL
-resource "ibm_cis_origin_pool" "vpc-a-lbaas" {
+resource "ibm_cis_origin_pool" "vpc-a-lbaas-web" {
   cis_id        = "${var.cis_instance_id}"
-  name          = "${var.vpc-a-name}-webtier-lb"
-  check_regions = ["NAF"]
+  name          = "${var.vpc-a-name}-originpool-lbaas-web01"
+  check_regions = ["ENAM"]
 
   monitor = "${ibm_cis_healthcheck.root.id}"
 
   origins = {
-    name    = "${var.vpc-a-name}-webtier-lbaas-1"
+    name    = "${var.vpc-a-name}-lbaas-web01"
     address = "${ibm_is_lb.vpc-a-web-lb.hostname}"
     enabled = true
   }
-
-  description = "${var.vpc-a-name}-webtier-lb"
+  description = "${var.vpc-a-name}-lbaas-web01"
   enabled     = true
 }
 
@@ -39,9 +38,9 @@ resource "ibm_cis_global_load_balancer" "glb" {
   cis_id           = "${var.cis_instance_id}"
   domain_id        = "${data.ibm_cis_domain.cis_instance_domain.id}"
   name             = "${var.glb-hostname}.${var.domain}"
-  fallback_pool_id = "${ibm_cis_origin_pool.vpc-a-lbaas.id}"
-  default_pool_ids = ["${ibm_cis_origin_pool.vpc-a-lbaas.id}"]
+  fallback_pool_id = "${ibm_cis_origin_pool.vpc-a-lbaas-web.id}"
+  default_pool_ids = ["${ibm_cis_origin_pool.vpc-a-lbaas-web.id}"]
   session_affinity = "cookie"
-  description      = "Global Loadbalancer for webappdemo"
+  description      = "Global Loadbalancer for ${var.glb-hostname}.${var.domain}"
   proxied          = true
 }

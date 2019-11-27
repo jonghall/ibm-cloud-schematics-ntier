@@ -10,8 +10,8 @@ resource "ibm_is_lb" "vpc-a-web-lb" {
 resource "ibm_is_lb_listener" "webapptier-lb-listener" {
   lb           = "${ibm_is_lb.vpc-a-web-lb.id}"
   default_pool = "${element(split("/", ibm_is_lb_pool.webapptier-lb-pool.id),1)}"
-  port         = "443"
-  protocol     = "https"
+  port         = "80"
+  protocol     = "http"
 }
 
 resource "ibm_is_lb_pool" "webapptier-lb-pool" {

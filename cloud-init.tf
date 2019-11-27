@@ -1,13 +1,13 @@
 
-data "local_file" "cloud-init-web-text" {
-  filename        = "cloud-init-web.cfg"
+data "local_file" "cloud-config-web-txt" {
+  filename        = "cloud-config-web.txt"
 }
 
-data "local_file" "cloud-init-db-text" {
-  filename        = "cloud-init-db.cfg"
+data "local_file" "cloud-config-db-txt" {
+  filename        = "cloud-config-db.txt"
 }
 
-data "local_file" "script" {
+data "local_file" "raxak-protect-setup-script" {
   filename        = "RaxakProtectSetup.sh"
 }
 
@@ -18,13 +18,13 @@ data "template_cloudinit_config" "cloud-init-web" {
   part {
     filename      = "init.cfg"
     content_type  = "text/cloud-config"
-    content       = "${data.local_file.cloud-init-web-text.content}"
+    content       = "${data.local_file.cloud-config-web-txt.content}"
   }
 
   part {
      filename      = "RaxakProtectSetup.sh"
      content_type  = "text/x-shellscript"
-     content       =  "${data.local_file.script.content}"
+     content       =  "${data.local_file.raxak-protect-setup-script.content}"
    }
 }
 
@@ -35,12 +35,12 @@ data "template_cloudinit_config" "cloud-init-db" {
   part {
     filename      = "init.cfg"
     content_type  = "text/cloud-config"
-    content       = "${data.local_file.cloud-init-db-text.content}"
+    content       = "${data.local_file.cloud-config-db-txt.content}"
   }
 
   part {
     filename      = "RaxakProtectSetup.sh"
     content_type  = "text/x-shellscript"
-    content       =  "${data.local_file.script.content}"
+    content       =  "${data.local_file.raxak-protect-setup-script.content}"
   }
 }

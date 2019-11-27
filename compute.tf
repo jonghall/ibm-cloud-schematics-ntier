@@ -26,7 +26,7 @@ resource "ibm_is_instance" "vpc-a-webserver-zone-1" {
 }
 
 resource "ibm_is_instance" "vpc-a-dbserver-zone-1" {
-  name    = "${var.db-server-name-template}-master}"
+  name    = "${var.db-server-name-template}-master"
   image   = "${data.ibm_is_image.image.id}"
   profile = "${var.dbserver-profile}"
 
@@ -57,7 +57,7 @@ resource "ibm_is_instance" "vpc-a-webserver-zone-2" {
 }
 
 resource "ibm_is_instance" "vpc-a-dbserver-zone-2" {
-  name    = "${var.db-server-name-template}-slave}"
+  name    = "${var.db-server-name-template}-slave"
   image   = "${data.ibm_is_image.image.id}"
   profile = "${var.dbserver-profile}"
 
