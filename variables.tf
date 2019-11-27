@@ -5,12 +5,28 @@
 #---------------------------------------------------------
 ## DEFINE VPC
 #---------------------------------------------------------
-variable "vpc1-name" {
+variable "vpc-a-name" {
   default = "raxak-test"
 }
 
 variable "resource_group" {
   default = "default"
+}
+
+#---------------------------------------------------------
+## DEFINE DNS
+#---------------------------------------------------------
+
+variable "glb-hostname" {
+  default = "wordpress"
+}
+
+variable "domain" {
+  default = "hallusa.com"
+}
+
+variable "cis_instance_id" {
+  default = "crn:v1:bluemix:public:internet-svcs:global:a/7a24585774d8b3c897d0c9b47ac48461:4c780756-df67-40ac-b1fa-65ca07eaebc2::"
 }
 
 
@@ -26,20 +42,20 @@ variable "zone-b" {
 }
 
 #---------------------------------------------------------
-## DEFINE CIDR Blocks to be used in each zone
+## DEFINE CIDR Blocks to be used in Zone A & B
 #---------------------------------------------------------
 
 variable "address-prefix-vpc-a-zone-a" {
-  default = "172.21.0.0/22"
+  default = "172.21.0.0/21"
 }
 
 variable "address-prefix-vpc-a-zone-b" {
-  default = "172.21.4.0/22"
+  default = "172.21.8.0/21"
 }
 
 
 #---------------------------------------------------------
-## DEFINE subnets for zone 1
+## DEFINE subnets for zone a
 #---------------------------------------------------------
 
 variable "web-subnet-vpc-a-zone-a" {
@@ -50,16 +66,19 @@ variable "data-subnet-vpc-a-zone-a" {
   default = "172.21.1.0/24"
 }
 
+#---------------------------------------------------------
+## DEFINE subnets for zone b
+#---------------------------------------------------------
 variable "web-subnet-vpc-a-zone-b" {
-  default = "172.21.4.0/24"
+  default = "172.21.8.0/24"
 }
 
 variable "data-subnet-vpc-a-zone-b" {
-  default = "172.21.5.0/24"
+  default = "172.21.9.0/24"
 }
 
 #---------------------------------------------------------
-## DEFINE OS image to be used for compute instances
+## DEFINE OS image & profile to use for server types
 #---------------------------------------------------------
 
 #image = Centos7
@@ -79,15 +98,18 @@ variable "web-server-count" {
   default = 1
 }
 
-variable "db-server-count" {
-  default = 1
-}
-
 variable "web-server-name-template" {
   default = "webserver-%02d"
 }
 
 variable "db-server-name-template" {
-  default = "mysqlserver-%02d"
+  default = "mysqlserver"
 }
 
+variable "vpc-a-lb-connections" {
+  default = 2000
+}
+
+variable "web-lb-algorithm" {
+  default = "round_robin"
+}

@@ -1,10 +1,10 @@
 
 data "local_file" "cloud-init-web-text" {
-  filename        = "cloud-init-web.txt"
+  filename        = "cloud-init-web.cfg"
 }
 
 data "local_file" "cloud-init-db-text" {
-  filename        = "cloud-init-db.txt"
+  filename        = "cloud-init-db.cfg"
 }
 
 data "local_file" "script" {
