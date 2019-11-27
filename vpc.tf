@@ -24,10 +24,6 @@ resource "ibm_is_vpc_address_prefix" "prefix1-a-1" {
   vpc  = "${ibm_is_vpc.vpc-a.id}"
   zone = "${var.zone-a}"
   cidr = "${var.address-prefix-vpc-a-zone-a}"
-  provisioner "local-exec" {
-    command = "sleep 210"
-    when    = "destroy"
-  }
 }
 
 resource "ibm_is_vpc_address_prefix" "prefix1-a-2" {
@@ -35,12 +31,7 @@ resource "ibm_is_vpc_address_prefix" "prefix1-a-2" {
   vpc  = "${ibm_is_vpc.vpc-a.id}"
   zone = "${var.zone-b}"
   cidr = "${var.address-prefix-vpc-a-zone-b}"
-  provisioner "local-exec" {
-    command = "sleep 210"
-    when    = "destroy"
-  }
 }
-
 
 #---------------------------------------------------------
 # Get Public Gateway's for Zone 1 & Zone 2
@@ -70,7 +61,7 @@ resource "ibm_is_public_gateway" "pubgw-vpc-a-zone2" {
 #---------------------------------------------------------
 ## Create Web and DB subnets in Zone 1 & Zone 2
 #---------------------------------------------------------
-resource "ibm_is_subnet" "web-subnet-vpc-a-zone1" {
+resource "ibm_is_subnet" "web-subnet-vpc-a-zone-a" {
   name            = "${var.vpc-a-name}-${var.zone-a}-webservers"
   vpc             = "${ibm_is_vpc.vpc-a.id}"
   zone            = "${var.zone-a}"
@@ -79,7 +70,7 @@ resource "ibm_is_subnet" "web-subnet-vpc-a-zone1" {
 
 }
 
-resource "ibm_is_subnet" "web-subnet-vpc-a-zone2" {
+resource "ibm_is_subnet" "web-subnet-vpc-a-zone-b" {
   name            = "${var.vpc-a-name}-${var.zone-b}-webservers"
   vpc             = "${ibm_is_vpc.vpc-a.id}"
   zone            = "${var.zone-b}"
@@ -87,7 +78,7 @@ resource "ibm_is_subnet" "web-subnet-vpc-a-zone2" {
   public_gateway  = "${ibm_is_public_gateway.pubgw-vpc-a-zone2.id}"
 }
 
-resource "ibm_is_subnet" "data-subnet-vpc-a-zone1" {
+resource "ibm_is_subnet" "data-subnet-vpc-a-zone-a" {
   name            = "${var.vpc-a-name}-${var.zone-a}-dbservers"
   vpc             = "${ibm_is_vpc.vpc-a.id}"
   zone            = "${var.zone-a}"
@@ -95,7 +86,7 @@ resource "ibm_is_subnet" "data-subnet-vpc-a-zone1" {
   public_gateway  = "${ibm_is_public_gateway.pubgw-vpc-a-zone1.id}"
 }
 
-resource "ibm_is_subnet" "data-subnet-vpc-a-zone2" {
+resource "ibm_is_subnet" "data-subnet-vpc-a-zone-b" {
   name            = "${var.vpc-a-name}-${var.zone-b}-dbservers"
   vpc             = "${ibm_is_vpc.vpc-a.id}"
   zone            = "${var.zone-b}"

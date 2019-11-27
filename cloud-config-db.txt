@@ -3,28 +3,35 @@ package_update: true
 package_upgrade: true
 
 packages:
-- build-essential
-- acl
-- ntp
-- htop
-- git
-- supervisor
-- python3
-- python3-pip
-- net-tools
-- traceroute
-- tcpdump
+ - build-essential
+ - acl
+ - ntp
+ - htop
+ - git
+ - supervisor
+ - python3
+ - python3-pip
+ - net-tools
+ - traceroute
+ - tcpdump
 
-runcmd:
-- sudo yum -y install epel-release yum-utils
-- sudo yum localinstall https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
-- sudo yum install mysql-community-server
-- sudo systemctl enable mysqld
-- sudo systemctl start mysqld
-
+mounts:
+ - [ LABEL=datapartition, /var/lib/mysql, "ext4", "defaults,nofail", "0", "2" ]
 
 power_state:
  mode: reboot
  message: Rebooting server now.
  timeout: 30
  condition: True
+
+runcmd:
+ - sudo parted /dev/vdd mklabel gpt
+ - sudo parted -a opt /dev/vdd mkpart primary ext4 0% 100%
+ - sudo mkfs.ext4 -L datapartition /dev/vdd1
+ - sudo e2label /dev/vdd1 datapartition
+ - sudo mount -a
+ - sudo yum -y install epel-release yum-utils
+ - sudo yum -y localinstall https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+ - sudo yum -y install mysql-community-server
+ - sudo systemctl enable mysqld
+ - sudo systemctl start mysqld

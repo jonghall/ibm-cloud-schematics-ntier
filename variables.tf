@@ -94,7 +94,7 @@ variable "dbserver-profile" {
   default = "cx2-2x4"
 }
 
-variable "web-server-count" {
+variable "web-server-count-per-zone" {
   default = 1
 }
 
@@ -102,7 +102,7 @@ variable "web-server-name-template" {
   default = "webserver-%02d"
 }
 
-variable "db-server-name-template" {
+variable "db-server-name" {
   default = "mysqlserver"
 }
 

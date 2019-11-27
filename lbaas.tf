@@ -3,20 +3,20 @@
 #----------------------------------------------------------
 
 resource "ibm_is_lb" "vpc-a-web-lb" {
-  name = "${var.vpc-a-name}-web-lb01"
-  subnets = ["${ibm_is_subnet.web-subnet-vpc-a-zone1.id}", "${ibm_is_subnet.web-subnet-vpc-a-zone2.id}"]
+  name = "${var.vpc-a-name}-regional-lbaas-web01"
+  subnets = ["${ibm_is_subnet.web-subnet-vpc-a-zone-a.id}", "${ibm_is_subnet.web-subnet-vpc-a-zone-b.id}"]
 }
 
-resource "ibm_is_lb_listener" "webapptier-lb-listener" {
+resource "ibm_is_lb_listener" "vpc-a-web-lb-listener" {
   lb           = "${ibm_is_lb.vpc-a-web-lb.id}"
-  default_pool = "${element(split("/", ibm_is_lb_pool.webapptier-lb-pool.id),1)}"
+  default_pool = "${element(split("/", ibm_is_lb_pool.vpc-a-web-lb-pool.id),1)}"
   port         = "80"
   protocol     = "http"
 }
 
-resource "ibm_is_lb_pool" "webapptier-lb-pool" {
+resource "ibm_is_lb_pool" "vpc-a-web-lb-pool" {
   lb                 = "${ibm_is_lb.vpc-a-web-lb.id}"
-  name               = "${var.vpc-a-name}-webapptier-lb-pool1"
+  name               = "${var.vpc-a-name}-web-lb-pool1"
   protocol           = "http"
   algorithm          = "${var.web-lb-algorithm}"
   health_delay       = "5"
@@ -30,17 +30,17 @@ resource "ibm_is_lb_pool" "webapptier-lb-pool" {
 # Add web from zone 1 and zone 2 to pool
 #---------------------------------------------------------
 resource "ibm_is_lb_pool_member" "vpc-a-webapp-lb-pool-member-zone-a" {
-  count          = "${ibm_is_instance.vpc-a-webserver-zone-1.count}"
+  count          = "${ibm_is_instance.vpc-a-webserver-zone-a.count}"
   lb             = "${ibm_is_lb.vpc-a-web-lb.id}"
-  pool           = "${element(split("/", ibm_is_lb_pool.webapptier-lb-pool.id),1)}"
+  pool           = "${element(split("/", ibm_is_lb_pool.vpc-a-web-lb-pool.id),1)}"
   port           = "80"
-  target_address = "${element(ibm_is_instance.vpc-a-webserver-zone-1.*.primary_network_interface.0.primary_ipv4_address,count.index)}"
+  target_address = "${element(ibm_is_instance.vpc-a-webserver-zone-a.*.primary_network_interface.0.primary_ipv4_address,count.index)}"
 }
 
 resource "ibm_is_lb_pool_member" "vpc-a-webapp-lb-pool-member-zone-b" {
-  count          = "${ibm_is_instance.vpc-a-webserver-zone-2.count}"
+  count          = "${ibm_is_instance.vpc-a-webserver-zone-b.count}"
   lb             = "${ibm_is_lb.vpc-a-web-lb.id}"
-  pool           = "${element(split("/", ibm_is_lb_pool.webapptier-lb-pool.id),1)}"
+  pool           = "${element(split("/", ibm_is_lb_pool.vpc-a-web-lb-pool.id),1)}"
   port           = "80"
-  target_address = "${element(ibm_is_instance.vpc-a-webserver-zone-2.*.primary_network_interface.0.primary_ipv4_address,count.index)}"
+  target_address = "${element(ibm_is_instance.vpc-a-webserver-zone-b.*.primary_network_interface.0.primary_ipv4_address,count.index)}"
 }
