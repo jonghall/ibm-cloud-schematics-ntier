@@ -100,8 +100,8 @@ resource "ibm_is_security_group_rule" "vpc-a-dbserver-securitygroup-rule4" {
   ip_version = "ipv4"
   remote     = "${var.web-subnet-vpc-a-zone-a}"
   tcp = {
-    port_min = 3309
-    port_max = 3309
+    port_min = 3306
+    port_max = 3306
   }
 }
 

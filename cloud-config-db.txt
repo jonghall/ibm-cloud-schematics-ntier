@@ -14,6 +14,8 @@ packages:
  - net-tools
  - traceroute
  - tcpdump
+ - epel-release
+ - yum-utils
 
 mounts:
  - [ LABEL=datapartition, /var/lib/mysql, "ext4", "defaults,nofail", "0", "2" ]
@@ -30,8 +32,9 @@ runcmd:
  - sudo mkfs.ext4 -L datapartition /dev/vdd1
  - sudo e2label /dev/vdd1 datapartition
  - sudo mount -a
- - sudo yum -y install epel-release yum-utils
- - sudo yum -y localinstall https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
- - sudo yum -y install mysql-community-server
- - sudo systemctl enable mysqld
- - sudo systemctl start mysqld
+ - sudo yum -y install ansible
+ - sudo curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
+ - sudo yum -y install MariaDB-server galera-4 MariaDB-client MariaDB-shared MariaDB-backup MariaDB-common MySQL-python
+ - sudo systemctl enable mariadb
+ - sudo systemctl start mariadb
+ - sudo ansible-playbook /var/lib/cloud/instance/scripts/configdb.yaml

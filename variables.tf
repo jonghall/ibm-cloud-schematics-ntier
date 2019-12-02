@@ -99,11 +99,23 @@ variable "web-server-count-per-zone" {
 }
 
 variable "web-server-name-template" {
-  default = "webserver-%02d"
+  default = "webserver%03d"
 }
 
-variable "db-server-name" {
-  default = "mysqlserver"
+variable "db-server-master-name" {
+  default = "mysql-server-master"
+}
+
+variable "db-server-slave-name" {
+  default = "mysql-server-slave"
+}
+
+variable "db-wordpress-passowrd" {
+  default = "passw0rd"
+}
+
+variable "db-replication-password" {
+  default = "replic8tion"
 }
 
 variable "vpc-a-lb-connections" {
@@ -112,4 +124,8 @@ variable "vpc-a-lb-connections" {
 
 variable "web-lb-algorithm" {
   default = "round_robin"
+}
+
+variable "raxak-protect-script-location" {
+  default = "https://s3.us-south.cloud-object-storage.appdomain.cloud/post-provisioning-scripts/RaxakProtectSetup.sh"
 }
