@@ -11,4 +11,4 @@
       git:
         repo: https://github.com/jonghall/wordpress-ansible-install.git
         dest: wordpress-ansible-install
-    - include_tasks: ~/wordpress-ansible-install/web/tasks/configure-wordpress.yaml
+    - include_tasks: wordpress-ansible-install/web/tasks/configure-wordpress.yaml
