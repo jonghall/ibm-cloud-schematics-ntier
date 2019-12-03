@@ -1,4 +1,6 @@
-
+#################################################
+# Define Cloud-init scripts to run on provisioning
+#################################################
 data "local_file" "cloud-config-web-txt" {
   filename        = "cloud-config-web.txt"
 }
@@ -22,21 +24,23 @@ data "template_file" "web-bootstrap-yaml" {
    }
 }
 
-
 data "template_file" "replication-master-yaml" {
-   template = "${file("${path.module}/ansible/configure-replication-master.tpl")}"
-   vars = {
-     db_replication_password = "${var.db-replication-password}"
-     db_wordpress_password = "${var.db-wordpress-passowrd}"
-   }
-}
-
-data "template_file" "replication-slave-yaml" {
-   template = "${file("${path.module}/ansible/configure-replication-slave.tpl")}"
+   template = "${file("${path.module}/ansible/db-master-bootstrap.tpl")}"
    vars = {
      db_replication_password = "${var.db-replication-password}"
      db_wordpress_password = "${var.db-wordpress-passowrd}"
      db_master_ip = "${ibm_is_instance.vpc-a-dbserver-zone-a.0.primary_network_interface.0.primary_ipv4_address}"
+     db_slave_ip = "${ibm_is_instance.vpc-a-dbserver-zone-b.0.primary_network_interface.0.primary_ipv4_address}"
+   }
+}
+
+data "template_file" "replication-slave-yaml" {
+   template = "${file("${path.module}/ansible/db-slave-bootstrap.tpl")}"
+   vars = {
+     db_replication_password = "${var.db-replication-password}"
+     db_wordpress_password = "${var.db-wordpress-passowrd}"
+     db_master_ip = "${ibm_is_instance.vpc-a-dbserver-zone-a.0.primary_network_interface.0.primary_ipv4_address}"
+     db_slave_ip = "${ibm_is_instance.vpc-a-dbserver-zone-b.0.primary_network_interface.0.primary_ipv4_address}"
    }
 }
 
