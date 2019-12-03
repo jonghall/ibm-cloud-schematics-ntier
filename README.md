@@ -43,7 +43,7 @@ The Wordpress HyperDB implements a Master-Slave replication between the database
 #### Compliance
 * Cloud Raxak
 
-## vpc-ibm-terraform-provider documentation
+## IBM Cloud Terraform provider documentation
 This project is currently based on Terraform v0.11.14 and the IBM Cloud Terraform Provider v.0.19.1.
 Documentation for the IBM provider can be found at: [https://ibm-cloud.github.io/tf-ibm-docs/v0.19.1/](https://ibm-cloud.github.io/tf-ibm-docs/v0.19.1/)
 
@@ -51,7 +51,7 @@ Documentation for the IBM provider can be found at: [https://ibm-cloud.github.io
 * Cloud Init 18.4
 * Ansible 2.8
 
-## Steps to modify sample Terraform Plan
+## Steps to create a Schematics Workspace and import this project
 
 1. [Download and install Terraform for your system](https://www.terraform.io/intro/getting-started/install.html). 
 
