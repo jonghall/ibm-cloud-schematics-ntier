@@ -1,23 +1,45 @@
-# Deploying the VPC Infrastructure using Terraform & IBM Cloud Schematics
+# Deploying the VPC Infrastructure using IBM Cloud Schematics
 A typical use case for a Virtual Private Cloud (VPC) is the ability to logically isolate an application running on the public cloud from other applications and environments.  Additionally many
-application architectures require different tiers to isolate and secure critical aspects of the application.   An application may also need to leverage different availability zones
+application architectures require different tiers to isolate and secure critical aspects of the application.   An application may also need to leverage different availability zones and even regions
 to increase the overall resilience of the application.   However, building these required constructs for the network and security across VPC's, Availability Zones, and the individual network subnets
-can be tedious to implement manually.   Additionally today's development cycles often require quick turn around and frequent updates driving the need for automation.
+can be tedious to implement manually.   Additionally today's development cycles often require quick turn around and frequent updates driving the need for automation.  IBM Cloud Schematics can provide a way to consistently build the required VPC throuhg infrastructure as code.
+
+This example leverages a typle n-tiered LEMP stack and Wordpress a popular open source bloggins and CMS platform.  Wordpress is based on PHP and MySQL.  Nginx aand PHP-NPM will be used for the web and application servers, and MariaDB for the database server.   The Operating System will be CENTOS 7, and the endpoints security compliance will be managed by Cloud Raxak.
+
+Prerequisites
+* IBM Cloud Account
+* IBM Cloud Schematics Workspace
+* Cloud Raxak Service Provisions
+* Cloud Object Storage 
 
 ### Infrastructure Architecture
+The Infrastructure will be based on IBM Cloud VPC, and will leverage two availability zones in the US-SOUTH multi-zone region.   In each Availability Zone, two subnets will be created, one for the web/app tier and one for the database tier.   Security Groups and ACL's will limit inbound traffic to port 22/80/443 for the web/app tier and limit all non-management traffic to the database tier.   The security group for the database tier will allow MySQL (port 3306) traffic only form the web tier.   The security groups will also allow cross zone traffic from the same tier.
+
+####Web Servers
+Web Servers are expected to scale horizontally in each availability zone, the quantity can be specified.   Each Web Server is registered with the redundant Local Load Balancer as a Service.   To enable expansion to multiple regions each Local Load Balancer is added to a Global Load Balancer.
+
+####Database Servers
+Two database Servers are deployed, one in each availability zone.  The database server runs MariaDBm and the database server located in availability zone A is configured as the Master, and availability zone B is configured as the Salve.
+
 ![3tier Web App - Infrastructure](images/infrastructure-architecture.png)
+
 
 ### Application Architecture
 ![3tuer Web App - Application](images/application-data-flow.png)
+
+####Web Servers
+Web servers will run Nginx with PHP-NPM app server.   Wordpress will leverage HyperDB to provide read connectivity to the closest database server and write activity to the Master database Server.
+
+#### Database Architecture
+The Wordpress HyperDB implements a Master-Slave replication between the database server in Availability Zone A and the server in Availability Zone B.  The plugin configured on each web server routes traffic from the web to the closest database server for reads, and to the master for writes. If the master fails, failover to the slave will occur.
+
 
 [HashiCorp's Terraform](https://www.terraform.io/) makes defining your cloud infrastructure in code possible.   Using the [IBM Cloud Terraform Provider](https://github.com/IBM-Cloud/terraform-provider-ibm)
 simplifies the provisioning and management of infrastructure in the IBM Cloud using Terraform by automating and saving the state of VPCs, security-groups, network acls, subnets, compute resources,
 load balancers and VPN endpoints across the desired availability zones within and accross the regions specified.
 
-## vpc-ibm-terraform-provider
+## vpc-ibm-terraform-provider documentation
 This project is currently based on Terraform v0.11.14 and the IBM Cloud Terraform Provider v.0.19.1.
-This provider can be found at: [https://github.com/IBM-Cloud/terraform-provider-ibm](https://github.com/IBM-Cloud/terraform-provider-ibm)
-
 Documentation for the IBM provider can be found at: [https://ibm-cloud.github.io/tf-ibm-docs/v0.19.1/](https://ibm-cloud.github.io/tf-ibm-docs/v0.19.1/)
 
 ## Steps to modify sample Terraform Plan
