@@ -92,6 +92,7 @@ variable "webserver-profile" {
 
 variable "dbserver-profile" {
   default = "cx2-2x4"
+}
 
 variable "web-server-count-per-zone" {
   default = 1
