@@ -2,7 +2,7 @@
 A typical use case for a Virtual Private Cloud (VPC) is the ability to logically isolate an application running on the public cloud from other applications and environments.  Additionally many
 application architectures require different tiers to isolate and secure critical aspects of the application.   An application may also need to leverage different availability zones and even regions
 to increase the overall resilience of the application.   However, building these required constructs for the network and security across VPC's, Availability Zones, and the individual network subnets
-can be tedious to implement manually.   Additionally today's development cycles often require quick turn around and frequent updates driving the need for automation.  IBM Cloud Schematics can provide a way to consistently build the required VPC throuhg infrastructure as code.
+can be tedious to implement manually.   Additionally today's development cycles often require quick turn around and frequent updates driving the need for automation.  IBM Cloud Schematics can provide a way to consistently build the required VPC throuhg infrastructure as code. 
 
 This example leverages a typle n-tiered LEMP stack and Wordpress a popular open source bloggins and CMS platform.  Wordpress is based on PHP and MySQL.  Nginx aand PHP-NPM will be used for the web and application servers, and MariaDB for the database server.   The Operating System will be CENTOS 7, and the endpoints security compliance will be managed by Cloud Raxak.
 
@@ -18,7 +18,7 @@ The Infrastructure will be based on IBM Cloud VPC, and will leverage two availab
 #### Web Servers
 Web Servers are expected to scale horizontally in each availability zone, the quantity can be specified.   Each Web Server is registered with the redundant Local Load Balancer as a Service.   To enable expansion to multiple regions each Local Load Balancer is added to a Global Load Balancer.
 
-####D atabase Servers
+#### Database Servers
 Two database Servers are deployed, one in each availability zone.  The database server runs MariaDBm and the database server located in availability zone A is configured as the Master, and availability zone B is configured as the Salve.
 
 ![3tier Web App - Infrastructure](images/infrastructure-architecture.png)
@@ -35,14 +35,21 @@ The Wordpress HyperDB implements a Master-Slave replication between the database
 
 ![3tuer Web App - Application](images/application-data-flow.png)
 
+### Security & Compliance
+#### Network Security
+* firewalls: acls / securitygroups 
+* CloudFlare: DDOS / WAF
 
-[HashiCorp's Terraform](https://www.terraform.io/) makes defining your cloud infrastructure in code possible.   Using the [IBM Cloud Terraform Provider](https://github.com/IBM-Cloud/terraform-provider-ibm)
-simplifies the provisioning and management of infrastructure in the IBM Cloud using Terraform by automating and saving the state of VPCs, security-groups, network acls, subnets, compute resources,
-load balancers and VPN endpoints across the desired availability zones within and accross the regions specified.
+#### Compliance
+* Cloud Raxak
 
 ## vpc-ibm-terraform-provider documentation
 This project is currently based on Terraform v0.11.14 and the IBM Cloud Terraform Provider v.0.19.1.
 Documentation for the IBM provider can be found at: [https://ibm-cloud.github.io/tf-ibm-docs/v0.19.1/](https://ibm-cloud.github.io/tf-ibm-docs/v0.19.1/)
+
+## Stack installation and configuration
+* Cloud Init 18.4
+* Ansible 2.8
 
 ## Steps to modify sample Terraform Plan
 
