@@ -15,7 +15,7 @@ data "ibm_is_image" "image" {
 
 resource "ibm_is_instance" "vpc-a-webserver-zone-a" {
   count   = "${var.web-server-count-per-zone}"
-  name    = "${format(var.web-server-name-template, count.index + 1)}"
+  name    = "${format(var.web-server-name-template-zone-a, count.index + 1)}"
   image   = "${data.ibm_is_image.image.id}"
   profile = "${var.webserver-profile}"
   primary_network_interface = {
@@ -31,7 +31,7 @@ resource "ibm_is_instance" "vpc-a-webserver-zone-a" {
 
 resource "ibm_is_instance" "vpc-a-webserver-zone-b" {
   count   = "${var.web-server-count-per-zone}"
-  name    = "${format(var.web-server-name-template, var.web-server-count-per-zone + count.index + 1)}"
+  name    = "${format(var.web-server-name-template-zone-b, count.index + 1)}"
   image   = "${data.ibm_is_image.image.id}"
   profile = "${var.webserver-profile}"
   primary_network_interface = {
@@ -51,11 +51,11 @@ resource "ibm_is_instance" "vpc-a-webserver-zone-b" {
 
 resource "ibm_is_floating_ip" "vpc-a-webserver-zone1-fip" {
   count   = "${var.web-server-count-per-zone}"
-  name    = "${format(var.web-server-name-template, count.index + 1)}-${var.zone-a}-fip"
+  name    = "${format(var.web-server-name-template-zone-a, count.index + 1)}-${var.zone-a}-fip"
   target  = "${element(ibm_is_instance.vpc-a-webserver-zone-a.*.primary_network_interface.0.id, count.index)}"
 }
 resource "ibm_is_floating_ip" "vpc-a-webserver-zone2-fip" {
   count   = "${var.web-server-count-per-zone}"
-  name    = "${format(var.web-server-name-template, count.index + 1)}-${var.zone-b}-fip"
+  name    = "${format(var.web-server-name-template-zone-b, count.index + 1)}-${var.zone-b}-fip"
   target  = "${element(ibm_is_instance.vpc-a-webserver-zone-b.*.primary_network_interface.0.id, count.index)}"
 }

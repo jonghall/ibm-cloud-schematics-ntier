@@ -1,7 +1,7 @@
 
 output "web-server-ips" {
   value = [
-    "${ibm_is_instance.vpc-a-webserver-zone-a.primary_network_interface.0.primary_ipv4_address}", "${ibm_is_instance.vpc-a-webserver-zone-b.primary_network_interface.0.primary_ipv4_address}"]
+    "${ibm_is_instance.vpc-a-webserver-zone-a.*.primary_network_interface.0.primary_ipv4_address}", "${ibm_is_instance.vpc-a-webserver-zone-b.*.primary_network_interface.0.primary_ipv4_address}"]
 }
 
 output "web-server-fips" {

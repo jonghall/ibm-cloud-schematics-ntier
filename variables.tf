@@ -98,8 +98,12 @@ variable "web-server-count-per-zone" {
   default = 1
 }
 
-variable "web-server-name-template" {
-  default = "webserver%03d"
+variable "web-server-name-template-zone-a" {
+  default = "webserver-1%03d"
+}
+
+variable "web-server-name-template-zone-b" {
+  default = "webserver-2%03d"
 }
 
 variable "db-server-master-name" {
