@@ -24,23 +24,20 @@ data "template_file" "web-bootstrap-yaml" {
    }
 }
 
-data "template_file" "replication-master-yaml" {
+data "template_file" "db-master-bootstrap-yaml" {
    template = "${file("${path.module}/ansible/db-master-bootstrap.tpl")}"
    vars = {
      db_replication_password = "${var.db-replication-password}"
      db_wordpress_password = "${var.db-wordpress-passowrd}"
-     db_master_ip = "${ibm_is_instance.vpc-a-dbserver-zone-a.0.primary_network_interface.0.primary_ipv4_address}"
-     db_slave_ip = "${ibm_is_instance.vpc-a-dbserver-zone-b.0.primary_network_interface.0.primary_ipv4_address}"
    }
 }
 
-data "template_file" "replication-slave-yaml" {
+data "template_file" "db-slave-bootstrap-yaml" {
    template = "${file("${path.module}/ansible/db-slave-bootstrap.tpl")}"
    vars = {
      db_replication_password = "${var.db-replication-password}"
      db_wordpress_password = "${var.db-wordpress-passowrd}"
      db_master_ip = "${ibm_is_instance.vpc-a-dbserver-zone-a.0.primary_network_interface.0.primary_ipv4_address}"
-     db_slave_ip = "${ibm_is_instance.vpc-a-dbserver-zone-b.0.primary_network_interface.0.primary_ipv4_address}"
    }
 }
 
@@ -84,7 +81,7 @@ data "template_cloudinit_config" "cloud-init-db-master" {
   part {
     filename       = "configdb.yaml"
     content_type  = "text/x-shellscript"
-    content       = "${data.template_file.replication-master-yaml.rendered}"
+    content       = "${data.template_file.db-master-bootstrap-yaml.rendered}"
   }
 }
 
@@ -106,6 +103,6 @@ data "template_cloudinit_config" "cloud-init-db-slave" {
   part {
     filename       = "configdb.yaml"
     content_type  = "text/x-shellscript"
-    content       = "${data.template_file.replication-slave-yaml.rendered}"
+    content       = "${data.template_file.db-slave-bootstrap-yaml.rendered}"
   }
 }
