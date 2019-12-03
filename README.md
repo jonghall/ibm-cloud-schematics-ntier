@@ -15,23 +15,25 @@ Prerequisites
 ### Infrastructure Architecture
 The Infrastructure will be based on IBM Cloud VPC, and will leverage two availability zones in the US-SOUTH multi-zone region.   In each Availability Zone, two subnets will be created, one for the web/app tier and one for the database tier.   Security Groups and ACL's will limit inbound traffic to port 22/80/443 for the web/app tier and limit all non-management traffic to the database tier.   The security group for the database tier will allow MySQL (port 3306) traffic only form the web tier.   The security groups will also allow cross zone traffic from the same tier.
 
-####Web Servers
+#### Web Servers
 Web Servers are expected to scale horizontally in each availability zone, the quantity can be specified.   Each Web Server is registered with the redundant Local Load Balancer as a Service.   To enable expansion to multiple regions each Local Load Balancer is added to a Global Load Balancer.
 
-####Database Servers
+####D atabase Servers
 Two database Servers are deployed, one in each availability zone.  The database server runs MariaDBm and the database server located in availability zone A is configured as the Master, and availability zone B is configured as the Salve.
 
 ![3tier Web App - Infrastructure](images/infrastructure-architecture.png)
 
 
 ### Application Architecture
-![3tuer Web App - Application](images/application-data-flow.png)
+The Wordpress Application scales horizontally and is able to withstand an outage of either web or database servers.    A Global Load Balancer (GLB) enables content, DDOS security, and future ability to route traffic to multiple regions.   HTTP requests resolve to the GLB, and are proxied to the local load balancer, where they are directed to the web server via a round-robin load balancing mechanism.  Static content is served by Nginx, and dynamic PHP application traffic is processed by PHP-NPM.  Database requests are routed to the appropriate database server.
 
-####Web Servers
-Web servers will run Nginx with PHP-NPM app server.   Wordpress will leverage HyperDB to provide read connectivity to the closest database server and write activity to the Master database Server.
+#### Web Servers
+Web servers will run Nginx with PHP-NPM app server.   Wordpress leverages the HyperDB module to provide read connectivity to the closest database server and write activity to the Master database Server.  
 
 #### Database Architecture
-The Wordpress HyperDB implements a Master-Slave replication between the database server in Availability Zone A and the server in Availability Zone B.  The plugin configured on each web server routes traffic from the web to the closest database server for reads, and to the master for writes. If the master fails, failover to the slave will occur.
+The Wordpress HyperDB implements a Master-Slave replication between the database server in Availability Zone A and the server in Availability Zone B.  The HyperDB plugin is configured on each web server to route traffic from the web to the closest database server for reads, and to the master for writes. If the master fails, failover to the slave will occur.
+
+![3tuer Web App - Application](images/application-data-flow.png)
 
 
 [HashiCorp's Terraform](https://www.terraform.io/) makes defining your cloud infrastructure in code possible.   Using the [IBM Cloud Terraform Provider](https://github.com/IBM-Cloud/terraform-provider-ibm)
