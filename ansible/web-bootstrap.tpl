@@ -7,8 +7,8 @@
     domain: ${domain}
     fqdn: ${glb-hostname}.${domain}
   tasks:
-    - name: Clone official openshift-ansible 3.11 Repository
+    - name: Clone wordpress-ansible-install repo
       git:
-         repo: https://github.com/jonghall/wordpress-ansible-install.git
-         dest: ~/wordpress-ansible-install
-    - import_tasks: ~/tasks/web/tasks/configure-wordpress.yaml
+        repo: https://github.com/jonghall/wordpress-ansible-install.git
+        dest: wordpress-ansible-install
+    - include_tasks: ~/wordpress-ansible-install/web/tasks/configure-wordpress.yaml
