@@ -14,7 +14,7 @@ data "local_file" "raxak-protect-setup-script" {
 }
 
 data "template_file" "web-bootstrap-yaml" {
-   template = "${file("${path.module}/ansible/web-bootstrap.tpl")}"
+   template = "${file("ansible/web-bootstrap.tpl")}"
    vars = {
      domain = "${var.domain}"
      glb-hostname =  "${var.glb-hostname}"
@@ -25,7 +25,7 @@ data "template_file" "web-bootstrap-yaml" {
 }
 
 data "template_file" "db-master-bootstrap-yaml" {
-   template = "${file("${path.module}/ansible/db-master-bootstrap.tpl")}"
+   template = "${file("ansible/db-master-bootstrap.tpl")}"
    vars = {
      db_replication_password = "${var.db-replication-password}"
      db_wordpress_password = "${var.db-wordpress-passowrd}"
@@ -33,7 +33,7 @@ data "template_file" "db-master-bootstrap-yaml" {
 }
 
 data "template_file" "db-slave-bootstrap-yaml" {
-   template = "${file("${path.module}/ansible/db-slave-bootstrap.tpl")}"
+   template = "${file("ansible/db-slave-bootstrap.tpl")}"
    vars = {
      db_replication_password = "${var.db-replication-password}"
      db_wordpress_password = "${var.db-wordpress-passowrd}"
