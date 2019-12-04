@@ -9,10 +9,6 @@ data "local_file" "cloud-config-db-txt" {
   filename        = "cloud-config-db.txt"
 }
 
-data "local_file" "raxak-protect-setup-script" {
-  filename        = "RaxakProtectSetup.sh"
-}
-
 data "template_file" "web-bootstrap-yaml" {
    template = "${file("ansible/web-bootstrap.tpl")}"
    vars = {
