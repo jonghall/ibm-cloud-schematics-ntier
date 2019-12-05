@@ -45,7 +45,7 @@ This example automatically enrolls all nodes into the IBM Cloud, Cloud Raxak com
 service on the IBM Cloud Portal to view the current compliance status of all deployed nodes amd then drill into each to determine where you have compliance gaps and remediate
 as needed.  This is also useful for tracking configuration drift over time.
 
-![Resource Enrollment](images/resource-enrollemnt.png)
+![Resource Enrollment](images/resource-enrollment.png)
 
 ![Resource Health Report](images/resource-health-report.png)
 
