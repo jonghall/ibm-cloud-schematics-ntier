@@ -41,7 +41,13 @@ The Wordpress HyperDB implements a Master-Slave replication between the database
 * CloudFlare: DDOS / WAF
 
 #### Compliance
-* Cloud Raxak
+This example automatically enrolls all nodes into the IBM Cloud, Cloud Raxak compliance scanning and remediation service.   Once complete you can browse to the Cloud Raxak
+service on the IBM Cloud Portal to view the current compliance status of all deployed nodes amd then drill into each to determine where you have compliance gaps and remediate
+as needed.  This is also useful for tracking configuration drift over time.
+
+![Resource Enrollment](images/infrastructure-architectureresource-enrollemnt.png)
+
+![Resource Health Report](images/resource-health-report.png)
 
 ## IBM Cloud Terraform provider documentation
 This project is currently based on Terraform v0.11.14 and the IBM Cloud Terraform Provider v.0.19.1.
