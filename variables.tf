@@ -131,5 +131,5 @@ variable "web-lb-algorithm" {
 }
 
 variable "raxak-protect-script-location" {
-  default = "https://s3.us-south.cloud-object-storage.appdomain.cloud/post-provisioning-scripts/RaxakProtectSetup.sh"
+  default = "https://post-provisioning-scripts.s3.us-south.cloud-object-storage.appdomain.cloud/RaxakProtectSetup.sh"
 }
