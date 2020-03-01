@@ -130,6 +130,9 @@ variable "web-lb-algorithm" {
   default = "round_robin"
 }
 
+variable "cert-crn" {
+  default = "crn:v1:bluemix:public:cloudcerts:us-south:a/7a24585774d8b3c897d0c9b47ac48461:d19e0025-0ec8-47fa-92b1-5bb141956bea:certificate:950427809095bcf0be718b681fef6499"
+
 variable "raxak-protect-script-location" {
   default = "https://post-provisioning-scripts.s3.us-south.cloud-object-storage.appdomain.cloud/RaxakProtectSetup.sh"
 }
