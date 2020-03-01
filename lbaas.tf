@@ -10,8 +10,9 @@ resource "ibm_is_lb" "vpc-a-web-lb" {
 resource "ibm_is_lb_listener" "vpc-a-web-lb-listener" {
   lb           = "${ibm_is_lb.vpc-a-web-lb.id}"
   default_pool = "${element(split("/", ibm_is_lb_pool.vpc-a-web-lb-pool.id),1)}"
-  port         = "80"
-  protocol     = "http"
+  port         = "443"
+  protocol     = "https"
+  certificate_instance = "${var.cert-crn}"
 }
 
 resource "ibm_is_lb_pool" "vpc-a-web-lb-pool" {
