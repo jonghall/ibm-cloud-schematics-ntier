@@ -6,7 +6,7 @@
 ## DEFINE VPC
 #---------------------------------------------------------
 variable "vpc-a-name" {
-  default = "raxak-test"
+  default = "wordpress-example"
 }
 
 variable "resource_group" {
@@ -131,7 +131,7 @@ variable "web-lb-algorithm" {
 }
 
 variable "cert-crn" {
-  default = "crn:v1:bluemix:public:cloudcerts:us-south:a/7a24585774d8b3c897d0c9b47ac48461:d19e0025-0ec8-47fa-92b1-5bb141956bea:certificate:950427809095bcf0be718b681fef6499"
+  default = "crn:v1:bluemix:public:cloudcerts:us-south:a/7a24585774d8b3c897d0c9b47ac48461:d19e0025-0ec8-47fa-92b1-5bb141956bea:certificate:0dcd0751fb248cad11681dfbca1b0e37"
   }
   
 variable "raxak-protect-script-location" {
