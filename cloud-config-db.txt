@@ -33,5 +33,5 @@ runcmd:
  - sudo e2label /dev/vdd1 datapartition
  - sudo mount -a
  - sudo yum -y install ansible
- - sudo curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
- - sudo ansible-playbook /var/lib/cloud/instance/scripts/configdb.yaml
+#- sudo curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
+#- sudo ansible-playbook /var/lib/cloud/instance/scripts/configdb.yaml

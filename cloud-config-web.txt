@@ -21,8 +21,8 @@ runcmd:
 - sudo yum -y install ansible
 - sudo yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 - sudo yum-config-manager --enable remi-php72
-- sudo curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
-- sudo ansible-playbook /var/lib/cloud/instance/scripts/configweb.yaml
+#- sudo curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
+#- sudo ansible-playbook /var/lib/cloud/instance/scripts/configweb.yaml
 
 power_state:
  mode: reboot
