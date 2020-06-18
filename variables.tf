@@ -10,7 +10,7 @@ variable "vpc-a-name" {
 }
 
 variable "resource_group" {
-  default = "default"
+  default = "vpc_sandbox"
 }
 
 #---------------------------------------------------------

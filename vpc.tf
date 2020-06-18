@@ -66,7 +66,6 @@ resource "ibm_is_subnet" "web-subnet-vpc-a-zone-a" {
   zone            = "${var.zone-a}"
   ipv4_cidr_block = "${var.web-subnet-vpc-a-zone-a}"
   public_gateway  = "${ibm_is_public_gateway.pubgw-vpc-a-zone1.id}"
-
 }
 
 resource "ibm_is_subnet" "web-subnet-vpc-a-zone-b" {

@@ -47,10 +47,10 @@ data "template_cloudinit_config" "cloud-init-web" {
     content       = "${data.local_file.cloud-config-web-txt.content}"
   }
 
-  part {
-     content_type  = "text/x-include-url"
-     content       =  "${var.raxak-protect-script-location}"
-   }
+  #part {
+  #   content_type  = "text/x-include-url"
+  #   content       =  "${var.raxak-protect-script-location}"
+  # }
 
   part {
     filename       = "configweb.yaml"
@@ -69,10 +69,10 @@ data "template_cloudinit_config" "cloud-init-db-master" {
     content       = "${data.local_file.cloud-config-db-txt.content}"
   }
 
-  part {
-     content_type  = "text/x-include-url"
-     content       =  "${var.raxak-protect-script-location}"
-   }
+  #part {
+  #   content_type  = "text/x-include-url"
+  #   content       =  "${var.raxak-protect-script-location}"
+  # }
 
   part {
     filename       = "configdb.yaml"
