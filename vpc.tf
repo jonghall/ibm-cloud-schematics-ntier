@@ -65,7 +65,6 @@ resource "ibm_is_subnet" "web-subnet-vpc-a-zone-a" {
   vpc             = "${ibm_is_vpc.vpc-a.id}"
   zone            = "${var.zone-a}"
   ipv4_cidr_block = "${var.web-subnet-vpc-a-zone-a}"
-  network_acl     = "${ibm_is_network_acl.webapptier_acl.id}"
   public_gateway  = "${ibm_is_public_gateway.pubgw-vpc-a-zone1.id}"
 
 }
@@ -75,7 +74,6 @@ resource "ibm_is_subnet" "web-subnet-vpc-a-zone-b" {
   vpc             = "${ibm_is_vpc.vpc-a.id}"
   zone            = "${var.zone-b}"
   ipv4_cidr_block = "${var.web-subnet-vpc-a-zone-b}"
-  network_acl     = "${ibm_is_network_acl.webapptier_acl.id}"
   public_gateway  = "${ibm_is_public_gateway.pubgw-vpc-a-zone2.id}"
 }
 
@@ -84,7 +82,6 @@ resource "ibm_is_subnet" "data-subnet-vpc-a-zone-a" {
   vpc             = "${ibm_is_vpc.vpc-a.id}"
   zone            = "${var.zone-a}"
   ipv4_cidr_block = "${var.data-subnet-vpc-a-zone-a}"
-  network_acl     = "${ibm_is_network_acl.dbtier_acl.id}"
   public_gateway  = "${ibm_is_public_gateway.pubgw-vpc-a-zone1.id}"
 }
 
@@ -93,6 +90,5 @@ resource "ibm_is_subnet" "data-subnet-vpc-a-zone-b" {
   vpc             = "${ibm_is_vpc.vpc-a.id}"
   zone            = "${var.zone-b}"
   ipv4_cidr_block = "${var.data-subnet-vpc-a-zone-b}"
-  network_acl     = "${ibm_is_network_acl.dbtier_acl.id}"
   public_gateway  = "${ibm_is_public_gateway.pubgw-vpc-a-zone2.id}"
 }
