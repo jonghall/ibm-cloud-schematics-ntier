@@ -2,7 +2,7 @@
 # Create Webapptier Security Group & Rules
 #---------------------------------------------------------
 resource "ibm_is_security_group" "vpc-a-webserver-securitygroup" {
-  name = "${var.vpc-a-name}-webserver-securitygroup"
+  name = "${var.vpc-a-name}-webserver-sg"
   vpc  = "${ibm_is_vpc.vpc-a.id}"
 }
 
@@ -65,7 +65,7 @@ resource "ibm_is_security_group_rule" "vpc-a-webserver-securitygroup-rule6" {
 # Create dbtier Security Group & Rules
 #---------------------------------------------------------
 resource "ibm_is_security_group" "vpc-a-dbserver-securitygroup" {
-  name = "${var.vpc-a-name}-dbserver-securitygroup"
+  name = "${var.vpc-a-name}-dbserver-sg"
   vpc  = "${ibm_is_vpc.vpc-a.id}"
 }
 
