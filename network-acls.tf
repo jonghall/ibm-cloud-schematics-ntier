@@ -1,8 +1,8 @@
 resource "ibm_is_network_acl" "webapptier_acl" {
   name = "${var.vpc-name}-webapptier-acl"
-  vpc = "${ibm_is_vpc.vpc1.id}"
+  vpc = "${ibm_is_vpc.vpc-a.id}"
   rules {
-      name      = "${var.vpc-name}-webapptier-icmp-all"
+      name      = "${var.vpc-a-name}-webapptier-icmp-all"
       direction = "inbound"
       action    = "allow"
       source    = "0.0.0.0/0"
@@ -13,7 +13,7 @@ resource "ibm_is_network_acl" "webapptier_acl" {
       }
     }
     rules {
-      name        = "${var.vpc-name}-webapptier-udp-user-ports"
+      name        = "${var.vpc-a-name}-webapptier-udp-user-ports"
       direction   = "inbound"
       action      = "allow"
       source      = "0.0.0.0/0"
@@ -24,7 +24,7 @@ resource "ibm_is_network_acl" "webapptier_acl" {
       }
     }
     rules {
-      name        = "${var.vpc-name}-webapptier-tcp-user-ports"
+      name        = "${var.vpc-a-name}-webapptier-tcp-user-ports"
       direction   = "inbound"
       action      = "allow"
       source      = "0.0.0.0/0"
@@ -35,21 +35,14 @@ resource "ibm_is_network_acl" "webapptier_acl" {
       }
     }
     rules {
-      name        = "${var.vpc-name}-webapptier-from-vpn-network"
-      direction   = "inbound"
-      action      = "allow"
-      source      = "${var.onprem_cidr}"
-      destination = "${var.address-prefix-vpc}"
-    }
-    rules {
-      name        = "${var.vpc-name}-webapptier-within-vpc"
+      name        = "${var.vpc-a-name}-webapptier-within-vpc"
       direction   = "inbound"
       action      = "allow"
       source      = "${var.address-prefix-vpc}"
       destination = "${var.address-prefix-vpc}"
     }
     rules {
-      name        = "${var.vpc-name}-webapptier-web-http-traffic"
+      name        = "${var.vpc-a-name}-webapptier-web-http-traffic"
       direction   = "inbound"
       action      = "allow"
       source      = "0.0.0.0/0"
@@ -60,7 +53,7 @@ resource "ibm_is_network_acl" "webapptier_acl" {
       }
     }
     rules {
-      name        = "${var.vpc-name}-webapptier-allow-all-egress"
+      name        = "${var.vpc-a-name}-webapptier-allow-all-egress"
       action      = "allow"
       source      = "0.0.0.0/0"
       destination = "0.0.0.0/0"
@@ -69,8 +62,8 @@ resource "ibm_is_network_acl" "webapptier_acl" {
 }
 
 resource "ibm_is_network_acl" "dbtier_acl" {
-  name = "${var.vpc-name}-dbtier-acl"
-  vpc = "${ibm_is_vpc.vpc1.id}"
+  name = "${var.vpc-a-name}-dbtier-acl"
+  vpc = "${ibm_is_vpc.vpc-a.id}"
   rules {
       name      = "${var.vpc-name}-dbtier-icmp-all"
       direction = "inbound"
@@ -83,7 +76,7 @@ resource "ibm_is_network_acl" "dbtier_acl" {
       }
   }
   rules {
-      name        = "${var.vpc-name}-dbtier-udp-user-ports"
+      name        = "${var.vpc-a-name}-dbtier-udp-user-ports"
       direction   = "inbound"
       action      = "allow"
       source      = "0.0.0.0/0"
@@ -94,7 +87,7 @@ resource "ibm_is_network_acl" "dbtier_acl" {
       }
   }
   rules {
-      name        = "${var.vpc-name}-dbtier-tcp-user-ports"
+      name        = "${var.vpc-a-name}-dbtier-tcp-user-ports"
       direction   = "inbound"
       action      = "allow"
       source      = "0.0.0.0/0"
@@ -105,25 +98,24 @@ resource "ibm_is_network_acl" "dbtier_acl" {
       }
   }
   rules {
-      name        = "${var.vpc-name}-dbtier-within-vpc"
+      name        = "${var.vpc-a-name}-dbtier-within-vpc"
       direction   = "inbound"
       action      = "allow"
       source      = "${var.address-prefix-vpc-a-zone-b}"
       destination = "${var.address-prefix-vpc-a-zone-b}"
     }
   rules {
-      name        = "${var.vpc-name}-dbtier-within-vpc"
+      name        = "${var.vpc-a-name}-dbtier-within-vpc"
       direction   = "inbound"
       action      = "allow"
       source      = "${var.address-prefix-vpc-a-zone-b}"
       destination = "${var.address-prefix-vpc-a-zone-b}"
     }
   rules {
-    name        = "${var.vpc-name}-dbtier-allow-all-egress"
+    name        = "${var.vpc-a-name}-dbtier-allow-all-egress"
     action      = "allow"
     source      = "0.0.0.0/0"
     destination = "0.0.0.0/0"
     direction   = "outbound"
   }
 }
-
